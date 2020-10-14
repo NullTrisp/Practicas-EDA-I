@@ -48,7 +48,6 @@ public class Person implements java.io.Serializable {
 			return yearDiff;
 		}
 		return 0;
-
 	}
 
 	public String getName() {
