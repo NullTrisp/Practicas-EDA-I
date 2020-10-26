@@ -1,6 +1,6 @@
 package edai.tema1.ejercicio1;
 
-public class Ejercicio1 {
+public class Ejercicio1 extends Object {
 
 	public static String removeEs(String text) {
 		String res = "";

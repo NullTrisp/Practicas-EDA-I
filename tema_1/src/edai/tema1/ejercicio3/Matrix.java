@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /**
  * Matrix class
+ * 
  * @author Nicolás Calvache 2020
  *
  */
@@ -12,21 +13,23 @@ public class Matrix {
 
 	/**
 	 * Constructor for the matrix class
+	 * 
 	 * @param rc Matrix to add to the class
 	 * @throws NullPointerException if the user tries to create a null matrix
 	 */
 	public Matrix(int[][] rc) throws NullPointerException {
 		try {
 			this.matrix = Arrays.stream(rc).map((int[] row) -> row.clone()).toArray((int length) -> new int[length][]);
-		} catch(NullPointerException err) {
+		} catch (NullPointerException err) {
 			throw new NullPointerException();
 		}
 	}
 
 	/**
 	 * Method to set a value in a specific position
-	 * @param r row to set the value
-	 * @param c column to set the value
+	 * 
+	 * @param r   row to set the value
+	 * @param c   column to set the value
 	 * @param val value to set in matrix
 	 * @throws ArrayIndexOutOfBoundsException
 	 */
@@ -43,6 +46,7 @@ public class Matrix {
 
 	/**
 	 * Method to get the value from a matrix in a specific position
+	 * 
 	 * @param r row to get the value from
 	 * @param c column to get the value from
 	 * @return integer value in the position
@@ -58,21 +62,25 @@ public class Matrix {
 
 	/**
 	 * Method to sum two matrix
+	 * 
 	 * @param right second matrix to sum
 	 * @return Matrix with the added values
 	 * @throws MatrixException
 	 */
 	public Matrix add(Matrix right) throws MatrixException {
-		int mat1ColLength = this.matrix.length;
-		int mat1RowLength = this.matrix[0].length;
+		int mat1Length = this.matrix.length, mat1RowLength = this.matrix[0].length, i, j;
+		boolean sameLength = mat1Length == right.matrix.length ? true : false;
 
-		int mat2ColLength = right.matrix.length;
-		int mat2RowLength = this.matrix[0].length;
+		for (i = 0; i < mat1Length; i++) {
+			if (this.matrix[i].length != right.matrix[i].length || !sameLength) {
+				sameLength = false;
+				break;
+			}
+		}
 
-		if (mat1ColLength == mat2ColLength && mat1RowLength == mat2RowLength) {
-			int i, j;
-			int[][] matrixAdd = new int[mat1ColLength][mat1RowLength];
-			for (i = 0; i < mat1ColLength; i++) {
+		if (sameLength) {
+			int[][] matrixAdd = new int[mat1Length][mat1RowLength];
+			for (i = 0; i < mat1Length; i++) {
 				for (j = 0; j < mat1RowLength; j++) {
 					matrixAdd[i][j] = this.matrix[i][j] + right.matrix[i][j];
 				}
@@ -85,6 +93,7 @@ public class Matrix {
 
 	/**
 	 * Method to multiply two Matrix
+	 * 
 	 * @param right Matrix to multiply
 	 * @return Matrix multiplied
 	 * @throws MatrixException
@@ -115,6 +124,7 @@ public class Matrix {
 
 	/**
 	 * Method to check if two matrix are the same
+	 * 
 	 * @param other second matrix to check the equality
 	 * @return boolean specifying the equality
 	 */

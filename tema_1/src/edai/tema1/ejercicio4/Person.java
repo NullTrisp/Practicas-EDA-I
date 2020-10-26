@@ -12,7 +12,7 @@ public class Person implements java.io.Serializable {
 	private String name;
 	private String lastName;
 	private Calendar birthday;
-	private String country;
+	private String country; //TODO revisar en constructor
 
 	public Person(String n, String ln, Calendar b) {
 		this.name = n;
@@ -49,37 +49,4 @@ public class Person implements java.io.Serializable {
 		}
 		return 0;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public Calendar getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(Calendar birthday) {
-		this.birthday = birthday;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
 }
