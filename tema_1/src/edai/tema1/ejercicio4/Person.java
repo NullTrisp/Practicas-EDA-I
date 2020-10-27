@@ -12,7 +12,14 @@ public class Person implements java.io.Serializable {
 	private String name;
 	private String lastName;
 	private Calendar birthday;
-	private String country; //TODO revisar en constructor
+	private String country;
+
+	public Person(String n, String ln, Calendar b, String c) {
+		this.name = n;
+		this.lastName = ln;
+		this.birthday = b;
+		this.country = c;
+	}
 
 	public Person(String n, String ln, Calendar b) {
 		this.name = n;
@@ -20,10 +27,35 @@ public class Person implements java.io.Serializable {
 		this.birthday = b;
 	}
 
-	public String getFullName() {
-		return this.name + " " + this.lastName;
+	/**
+	 * Method to get the name
+	 * @return name
+	 */
+	public String getName() {
+		return name;
 	}
 
+	/**
+	 * Method to get the lastname
+	 * @return lastname
+	 */
+	public String getLastName() {
+		return lastName;
+	}
+
+	/**
+	 * Method to get the fullname
+	 * @return fullname
+	 */
+	public String getFullName() {
+		return this.getName() + " " + this.getLastName();
+	}
+
+	/**
+	 * Method to get the age at a given date
+	 * @param date date to compare the age
+	 * @return age at the date
+	 */
 	public int getAgeAtDate(Calendar date) {
 		int yearPerson = this.birthday.get(Calendar.YEAR);
 		int yearRecieved = date.get(Calendar.YEAR);

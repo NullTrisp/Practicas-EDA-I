@@ -19,10 +19,28 @@ public class Matrix {
 	 */
 	public Matrix(int[][] rc) throws NullPointerException {
 		try {
-			this.matrix = Arrays.stream(rc).map((int[] row) -> row.clone()).toArray((int length) -> new int[length][]);
+			this.matrix = copyMatrix(rc);
 		} catch (NullPointerException err) {
 			throw new NullPointerException();
 		}
+	}
+
+	/**
+	 * Method to copy the matrix received
+	 * 
+	 * @param arr array to be copied
+	 * @return a exact copy of the array
+	 */
+	public int[][] copyMatrix(int[][] arr) {
+		int i, j;
+		int[][] array = new int[arr.length][arr[0].length];
+
+		for (i = 0; i < arr.length; i++) {
+			for (j = 0; j < arr[i].length; j++) {
+				array[i][j] = arr[i][j];
+			}
+		}
+		return array;
 	}
 
 	/**
@@ -69,16 +87,8 @@ public class Matrix {
 	 */
 	public Matrix add(Matrix right) throws MatrixException {
 		int mat1Length = this.matrix.length, mat1RowLength = this.matrix[0].length, i, j;
-		boolean sameLength = mat1Length == right.matrix.length ? true : false;
 
-		for (i = 0; i < mat1Length; i++) {
-			if (this.matrix[i].length != right.matrix[i].length || !sameLength) {
-				sameLength = false;
-				break;
-			}
-		}
-
-		if (sameLength) {
+		if (mat1Length == right.matrix.length && right.matrix[0].length == mat1RowLength) {
 			int[][] matrixAdd = new int[mat1Length][mat1RowLength];
 			for (i = 0; i < mat1Length; i++) {
 				for (j = 0; j < mat1RowLength; j++) {
@@ -99,8 +109,7 @@ public class Matrix {
 	 * @throws MatrixException
 	 */
 	public Matrix multiply(Matrix right) throws MatrixException {
-		int mat1ColNum = this.matrix[0].length;
-		int mat2RowNum = right.matrix.length;
+		int mat1ColNum = this.matrix[0].length, mat2RowNum = right.matrix.length;
 
 		if (mat1ColNum == mat2RowNum) {
 			int i, j, k, aux;
