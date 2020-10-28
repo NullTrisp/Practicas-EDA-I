@@ -29,6 +29,7 @@ public class Person implements java.io.Serializable {
 
 	/**
 	 * Method to get the name
+	 * 
 	 * @return name
 	 */
 	public String getName() {
@@ -37,6 +38,7 @@ public class Person implements java.io.Serializable {
 
 	/**
 	 * Method to get the lastname
+	 * 
 	 * @return lastname
 	 */
 	public String getLastName() {
@@ -45,14 +47,44 @@ public class Person implements java.io.Serializable {
 
 	/**
 	 * Method to get the fullname
+	 * 
 	 * @return fullname
 	 */
 	public String getFullName() {
-		return this.getName() + " " + this.getLastName();
+		return this.name + " " + this.lastName;
+	}
+
+	public Calendar getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Calendar birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	/**
 	 * Method to get the age at a given date
+	 * 
 	 * @param date date to compare the age
 	 * @return age at the date
 	 */
