@@ -13,18 +13,20 @@ public class AddressBook {
 	}
 
 	public List<String> getContactNames() {
-		Node<Contact> contacts = this.contactList.getFirst();
 		List<String> contactNames = new List<String>();
-		contactNames.insert(contacts.getData().getFirstName(), 0);
-		for (int i = 0; i < this.contactList.size(); i++) {
-			contactNames.insert(contacts.getNext().getData().getFirstName(), i + 1);
-		}
+		/*
+		 * Node<Contact> contacts = this.contactList.getFirst();
+		 * contactNames.insert(contacts.getData().getFirstName(), 0); for (int i = 0; i
+		 * < this.contactList.size(); i++) {
+		 * contactNames.insert(contacts.getNext().getData().getFirstName(), i + 1); }
+		 */
 		return contactNames;
 	}
 
 	public Contact getContact(String name) {
+		Node<Contact> namee = this.contactList.getFirst();
 		for (int i = 0; i < this.contactList.size(); i++) {
-			// this.contactList.getNext();
+			namee.getNext().getData().getFirstName();
 		}
 		return null;
 	}

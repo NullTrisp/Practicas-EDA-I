@@ -3,6 +3,7 @@ package edai.tema2.ejercicio1;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import edai.tema2.ejercicio1.List;
 import edai.tema2.ejercicio1.Node;
 
