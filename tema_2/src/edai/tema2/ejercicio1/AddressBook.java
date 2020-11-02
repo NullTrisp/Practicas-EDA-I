@@ -9,23 +9,38 @@ public class AddressBook {
 	}
 
 	public void addContact(Contact contact) {
-		this.contactList.insert(contact, this.contactList.size());
+		this.contactList.insert(contact, -1);
 	}
 
 	public List<String> getContactNames() {
-		Node<Contact> contacts = this.contactList.getFirst();
-		List<String> contactNames = new List<String>();
-		contactNames.insert(contacts.getData().getFirstName(), 0);
-		for (int i = 0; i < this.contactList.size(); i++) {
-			contactNames.insert(contacts.getNext().getData().getFirstName(), i + 1);
+		Node<Contact> current = this.contactList.getFirst();
+		List<String> names = new List<String>();
+		String aux;
+		while (current != null) {
+			aux = current.getData().getLastName() + ", " + current.getData().getFirstName();
+			names.insert(aux, -1);
+			current = current.getNext();
 		}
-		return contactNames;
+
+		return names;
 	}
 
+	/**
+	 * Method to return an specific contact (lastname , firstname)
+	 * @param name name of the desired contact
+	 * @return null if not found or the contact object
+	 */
 	public Contact getContact(String name) {
-		for (int i = 0; i < this.contactList.size(); i++) {
-			// this.contactList.getNext();
+		Node<Contact> current = this.contactList.getFirst();
+		String aux;
+		while (current != null) {
+			aux = current.getData().getLastName() + ", " + current.getData().getFirstName();
+			if (name.equals(aux)) {
+				return current.getData();
+			}
+			current = current.getNext();
 		}
+
 		return null;
 	}
 }
