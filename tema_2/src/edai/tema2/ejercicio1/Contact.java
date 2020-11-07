@@ -15,6 +15,22 @@ public class Contact implements java.io.Serializable {
 
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
 	public String getLastName() {
 		return lastName;
 	}
