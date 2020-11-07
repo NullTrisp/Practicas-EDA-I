@@ -1,6 +1,5 @@
 package edai.tema2.ejercicio1;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -9,6 +8,7 @@ public class Main {
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 		boolean exit = false;
+		int userInput;
 		AddressBook book = new AddressBook();
 
 		final Contact johnAppleseed = new Contact();
@@ -33,36 +33,40 @@ public class Main {
 		janeDoe.setEmail("jane.doe@oracle.com");
 		book.addContact(janeDoe);
 
+		System.out.println("Welcome to your address book");
+		System.out.println("----------------------------");
 		while (!exit) {
-			System.out.println("Welcome to your address book");
-			System.out.println("----------------------------");
 			System.out.println("What do you desire to do?...");
 			System.out.println("1 => list all contacts");
 			System.out.println("2 => list all info for one contact");
 			System.out.println("3 => exit the app");
-			try {
-				int userInput = in.nextInt();
+			System.out.println("");
 
+			if (in.hasNextInt()) {
+				userInput = in.nextInt();
 				switch (userInput) {
 				case 1:
+					System.out.println("");
+					System.out.println("Contact list: ");
 					List<String> names = book.getContactNames();
 					Node<String> current = names.getFirst();
 					for (int i = 0; i < names.size(); i++) {
-						System.out.println(current.getData());
+						System.out.println((i + 1) + ". " + current.getData());
 						current = current.getNext();
 					}
 					System.out.println("");
 					break;
 				case 2:
 					System.out.println("Please select a contact: ");
+					in.nextLine();
 					String contactInput = in.nextLine();
 					Contact contactSelected = book.getContact(contactInput);
 					if (contactSelected != null) {
 						System.out.println("Firstname: " + contactSelected.getFirstName());
-						System.out.println("Lastname: " + contactSelected.getFirstName());
-						System.out.println("Company: " + contactSelected.getFirstName());
-						System.out.println("Address: " + contactSelected.getFirstName());
-						System.out.println("Email: " + contactSelected.getFirstName());
+						System.out.println("Lastname: " + contactSelected.getLastName());
+						System.out.println("Company: " + contactSelected.getCompany());
+						System.out.println("Address: " + contactSelected.getAddress());
+						System.out.println("Email: " + contactSelected.getEmail());
 						System.out.println("");
 					}
 					System.out.println("There´s no contact with that name");
@@ -76,8 +80,10 @@ public class Main {
 					System.out.println("");
 					break;
 				}
-			} catch (InputMismatchException e) {
-				System.out.println("Please input a valid number!");
+			} else {
+				in.nextLine();
+				System.out.println("Enter a valid Integer value!");
+				System.out.println("");
 			}
 
 		}

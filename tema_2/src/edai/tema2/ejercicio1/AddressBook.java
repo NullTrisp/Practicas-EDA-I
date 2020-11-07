@@ -8,10 +8,18 @@ public class AddressBook {
 		this.contactList = new List<Contact>();
 	}
 
+	/**
+	 * Method to add a contact to the current address book
+	 * @param contact Contact to add
+	 */
 	public void addContact(Contact contact) {
 		this.contactList.insert(contact, -1);
 	}
 
+	/**
+	 * Method to return all contact names (lastname, firstname)
+	 * @return List with all the contact names
+	 */
 	public List<String> getContactNames() {
 		Node<Contact> current = this.contactList.getFirst();
 		List<String> names = new List<String>();
@@ -26,8 +34,8 @@ public class AddressBook {
 	}
 
 	/**
-	 * Method to return an specific contact (lastname , firstname)
-	 * @param name name of the desired contact
+	 * Method to return an specific contact
+	 * @param name name of the desired contact (lastname , firstname)
 	 * @return null if not found or the contact object
 	 */
 	public Contact getContact(String name) {
