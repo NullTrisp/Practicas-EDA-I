@@ -1,5 +1,8 @@
 package edai.tema2.ejercicio1;
 
+import edai.tema2.List;
+import edai.tema2.Node;
+
 public class AddressBook {
 
 	private List<Contact> contactList;
@@ -10,6 +13,7 @@ public class AddressBook {
 
 	/**
 	 * Method to add a contact to the current address book
+	 * 
 	 * @param contact Contact to add
 	 */
 	public void addContact(Contact contact) {
@@ -18,6 +22,7 @@ public class AddressBook {
 
 	/**
 	 * Method to return all contact names (lastname, firstname)
+	 * 
 	 * @return List with all the contact names
 	 */
 	public List<String> getContactNames() {
@@ -35,6 +40,7 @@ public class AddressBook {
 
 	/**
 	 * Method to return an specific contact
+	 * 
 	 * @param name name of the desired contact (lastname , firstname)
 	 * @return null if not found or the contact object
 	 */

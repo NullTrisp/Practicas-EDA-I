@@ -2,6 +2,9 @@ package edai.tema2.ejercicio1;
 
 import java.util.Scanner;
 
+import edai.tema2.List;
+import edai.tema2.Node;
+
 public class Main {
 
 	public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package edai.tema2.ejercicio1;
+package edai.tema3;
 
 public interface IDataStructure<T> {
 	public boolean isEmpty();

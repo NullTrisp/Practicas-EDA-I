@@ -1,4 +1,4 @@
-package edai.tema2.ejercicio1;
+package edai.tema2;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
