@@ -71,10 +71,10 @@ public class Main {
 						System.out.println("Address: " + contactSelected.getAddress());
 						System.out.println("Email: " + contactSelected.getEmail());
 						System.out.println("");
-					} else {
-						System.out.println("There´s no contact with that name");
-						System.out.println("");
+						break;
 					}
+					System.out.println("There´s no contact with that name");
+					System.out.println("");
 					break;
 				case 3:
 					exit = true;
