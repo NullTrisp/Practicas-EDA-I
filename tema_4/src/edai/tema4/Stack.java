@@ -4,19 +4,16 @@ import java.util.EmptyStackException;
 import edai.tema4.IDataStructure;
 import edai.tema4.Node;
 
-public class Queue<T> implements IDataStructure<T> {
+public class Stack<T> implements IDataStructure<T> {
 	private Node<T> first;
 
 	public void push(T elem) {
-		final Node<T> node = new Node<T>(elem);
+		Node<T> node = new Node<T>(elem);
 		if (first == null) {
 			first = node;
 		} else {
-			Node<T> current = first;
-			while (current.getNext() != null) {
-				current = current.getNext();
-			}
-			current.setNext(node);
+			node.setNext(first);
+			first = node;
 		}
 	}
 
@@ -24,7 +21,7 @@ public class Queue<T> implements IDataStructure<T> {
 		if (first == null) {
 			throw new EmptyStackException();
 		} else {
-			final Node<T> node = first;
+			Node<T> node = first;
 			first = first.getNext();
 			return node.getData();
 		}
@@ -38,12 +35,10 @@ public class Queue<T> implements IDataStructure<T> {
 		}
 	}
 
-	@Override
 	public boolean isEmpty() {
 		return first == null;
 	}
 
-	@Override
 	public int size() {
 		if (first == null) {
 			return 0;
@@ -52,7 +47,6 @@ public class Queue<T> implements IDataStructure<T> {
 		}
 	}
 
-	@Override
 	public Object[] listData() {
 		Object[] array = new Object[size()];
 		Node<T> node = first;

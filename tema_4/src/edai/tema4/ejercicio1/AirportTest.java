@@ -65,6 +65,6 @@ class AirportTest {
 		final Plane[] expectedFirst = { madridPlane, menorcaPlane, berlinPlane, newYorkPlane, philadelphiaPlane };
 		final Plane[] expectedSecond = { sanFranciscoPlane, birminghamPlane, barcelonaPlane, parisPlane, irvinePlane };
 		assertArrayEquals(expectedFirst, airport.getFirstLandingStripPlanes());
-		assertArrayEquals(expectedSecond, airport.getFirstLandingStripPlanes());
+		assertArrayEquals(expectedSecond, airport.getSecondLandingStripPlanes());
 	}
 }

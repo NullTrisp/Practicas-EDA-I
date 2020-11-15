@@ -1,123 +1,118 @@
 package edai.tema4;
 
-public class List<T> implements IDataStructure<T> {
-	private Node<T> first;
-	
-	public List() {
-		
-	}
-	
+public class List<T> {
+	Node<T> first;
+
 	public List<T> insert(T data, int index) {
-		if (index == 0 || (index == -1 && isEmpty())) {
-			insertAtBeginning(data);
+		if (first == null && (index == 0 || index == -1)) {
+			first = new Node<T>(data);
+		} else if (index == 0) {
+			insertFirst(new Node<T>(data));
 		} else if (index == -1) {
-			insertAtEnd(data);
-		} else if (index < -1) {
-			throw new IndexOutOfBoundsException();
+			insertLast(new Node<T>(data));
+		} else if (index > 0) {
+			insertAt(new Node<T>(data), index);
 		} else {
-			insertAtIndex(data, index);
+			throw new IndexOutOfBoundsException();
 		}
 		return this;
 	}
-	
-	private void insertAtBeginning(T data) {
-		Node<T> node = new Node<T>(data);
-		node.setNext(getFirst());
+
+	private void insertFirst(Node<T> node) {
+		node.setNext(first);
 		first = node;
 	}
-	
-	private void insertAtEnd(T data) {
-		Node<T> current = getFirst();
-		while (current.getNext() != null) {
-			current = current.getNext();
+
+	private void insertLast(Node<T> node) {
+		Node<T> last = first;
+		while (last.getNext() != null) {
+			last = last.getNext();
 		}
-		current.setNext(new Node<T>(data));
+		last.setNext(node);
 	}
-	
-	private void insertAtIndex(T data, int index) {
-		int control = 0;
-		Node<T> current = getFirst();
-		while (current != null && control < index - 1) {
+
+	private void insertAt(Node<T> node, int index) {
+		int i = 0;
+		Node<T> current = first;
+		while (i < index - 1 && current != null) {
+			++i;
 			current = current.getNext();
-			control++;
 		}
 		if (current != null) {
-			Node<T> newNode = new Node<T>(data);
-			newNode.setNext(current.getNext());
-			current.setNext(newNode);
+			node.setNext(current.getNext());
+			current.setNext(node);
 		} else {
 			throw new IndexOutOfBoundsException();
 		}
 	}
-	
+
 	public List<T> remove(int index) {
-		if (isEmpty() || index < -1) {
-			throw new IndexOutOfBoundsException();
-		} else if (index == 0 || (index == -1 && first.getNext() == null)) {
-			removeFirst(); 
-		} else if (index == -1) {
-			removeLast();
+		if (getFirst() != null) {
+			if (index == 0) {
+				removeFirst();
+			} else if (index == -1) {
+				removeLast();
+			} else {
+				removeAt(index);
+			}
 		} else {
-			removeAtIndex(index);
+			throw new IndexOutOfBoundsException();
 		}
 		return this;
 	}
-	
+
 	private void removeFirst() {
-		first = first.getNext();
+		first = getFirst().getNext();
 	}
-	
+
 	private void removeLast() {
-		Node<T> current = first;
-		while (current.getNext() != null
-				&& current.getNext().getNext() != null) {
-			current = current.getNext();
-		}
-		current.setNext(null);
-	}
-	
-	private void removeAtIndex(int index) {
-		int control = 0;
-		Node<T> current = first;
-		while (current != null && control < index - 1) {
-			current = current.getNext();
-			control++;
-		}
-		if (current != null && current.getNext() != null) {
-			current.setNext(current.getNext().getNext());
+		if (getFirst().getNext() != null) {
+			Node<T> oneBeforeLast = getFirst();
+			while (oneBeforeLast.getNext() != null && oneBeforeLast.getNext().getNext() != null) {
+				oneBeforeLast = oneBeforeLast.getNext();
+			}
+			oneBeforeLast.setNext(null);
 		} else {
+			first = null;
+		}
+	}
+
+	private void removeAt(int index) {
+		Node<T> current = first;
+		for (int i = 0; i < index - 1; ++i) {
+			current = current.getNext();
+			if (current == null) {
+				throw new IndexOutOfBoundsException();
+			}
+		}
+		if (current.getNext() == null) {
 			throw new IndexOutOfBoundsException();
 		}
+		current.setNext(current.getNext().getNext());
 	}
-	
+
 	public Node<T> getFirst() {
 		return first;
 	}
-	
-	public int size() {
-		int count = 0;
-		Node<T> current = getFirst();
-		while (current != null) {
-			count++;
-			current = current.getNext();
-		}
-		return count;
 
-	}
-	
 	public boolean isEmpty() {
 		return getFirst() == null;
 	}
-	
-	public T[] listData() {
-		@SuppressWarnings("unchecked")
-		T[] array = (T[])new Object[size()];
-		int index = 0;
-		Node<T> current = getFirst();
-		while (current != null) {
-			array[index] = current.getData();
-			index++;
-			current = current.getNext();
+
+	public int size() {
+		if (first != null) {
+			return first.count();
+		} else {
+			return 0;
+		}
+	}
+
+	public Object[] listData() {
+		Object[] array = new Object[size()];
+		Node<T> node = first;
+		for (int i = 0; i < array.length; ++i) {
+			array[i] = node.getData();
+			node = node.getNext();
 		}
 		return array;
 	}

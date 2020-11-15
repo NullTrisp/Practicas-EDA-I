@@ -3,7 +3,7 @@ package edai.tema3;
 public class Node<T> {
 	private T data;
 	private Node<T> next;
-	
+
 	public Node(T data) {
 		setData(data);
 	}
@@ -22,5 +22,13 @@ public class Node<T> {
 
 	public void setNext(Node<T> next) {
 		this.next = next;
+	}
+
+	public int count() {
+		if (getNext() == null) {
+			return 1;
+		} else {
+			return 1 + getNext().count();
+		}
 	}
 }

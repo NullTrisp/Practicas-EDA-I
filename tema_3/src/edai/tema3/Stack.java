@@ -2,50 +2,58 @@ package edai.tema3;
 
 import java.util.EmptyStackException;
 import edai.tema3.IDataStructure;
-import edai.tema3.List;
+import edai.tema3.Node;
 
 public class Stack<T> implements IDataStructure<T> {
-	private List<T> list;
-	
-	public Stack() {
-		list = new List<T>();
-	}
-	
+	private Node<T> first;
+
 	public void push(T elem) {
-		list.insert(elem, 0);
+		Node<T> node = new Node<T>(elem);
+		if (first == null) {
+			first = node;
+		} else {
+			node.setNext(first);
+			first = node;
+		}
 	}
-	
+
 	public T pop() {
-		if (isEmpty()) {
+		if (first == null) {
 			throw new EmptyStackException();
 		} else {
-			T elem = list.getFirst().getData();
-			list.remove(0);
-			return elem;
+			Node<T> node = first;
+			first = first.getNext();
+			return node.getData();
 		}
 	}
-	
+
 	public T top() {
-		if (isEmpty()) {
+		if (first == null) {
 			throw new EmptyStackException();
 		} else {
-			return list.getFirst().getData();
+			return first.getData();
 		}
 	}
-	
-	@Override
+
 	public boolean isEmpty() {
-		return list.isEmpty();
+		return first == null;
 	}
 
-	@Override
 	public int size() {
-		return list.size();
+		if (first == null) {
+			return 0;
+		} else {
+			return first.count();
+		}
 	}
 
-	@Override
-	public T[] listData() {
-		return list.listData();
+	public Object[] listData() {
+		Object[] array = new Object[size()];
+		Node<T> node = first;
+		for (int i = 0; i < array.length; ++i) {
+			array[i] = node.getData();
+			node = node.getNext();
+		}
+		return array;
 	}
-
 }
