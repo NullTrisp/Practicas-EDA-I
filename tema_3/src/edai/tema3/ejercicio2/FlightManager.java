@@ -8,7 +8,7 @@ public class FlightManager {
 		Stack<Flight> filteredFlights = new Stack<Flight>(), filteredFlightsInverted = new Stack<Flight>(),
 				auxStack = new Stack<Flight>();
 		Flight aux;
-		int flightsSize = flights.size(), i = 0;
+		int flightsSize = flights.size(), i;
 
 		for (i = 0; i < flightsSize; i++) {
 			aux = flights.pop();
