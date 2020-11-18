@@ -25,6 +25,18 @@ public class Plane implements Serializable {
 		this.destination = destination;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public String getAirline() {
+		return airline;
+	}
+
+	public String getDestination() {
+		return destination;
+	}
+
 	public void setTakeoutSeconds(int takeoutSeconds) {
 		this.takeoutSeconds = takeoutSeconds;
 	}
