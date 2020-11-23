@@ -27,15 +27,24 @@ public class Airport {
 
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Plane[] getFirstLandingStripPlanes() {
 		int landingStripSize = this.firstLandingStrip.size(), i;
 		Plane[] Planes = new Plane[landingStripSize];
 		for (i = 0; i < landingStripSize; i++) {
 			Planes[i] = this.firstLandingStrip.pop();
+			this.firstLandingStrip.push(Planes[i]);
 		}
 		return Planes;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int getFirstLandingStripTakeoutSeconds() {
 		int landingStripSize = this.firstLandingStrip.size(), i, seconds = 0;
 		Plane aux;
@@ -47,15 +56,24 @@ public class Airport {
 		return seconds;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Plane[] getSecondLandingStripPlanes() {
 		int landingStripSize = this.secondLandingStrip.size(), i;
 		Plane[] Planes = new Plane[landingStripSize];
 		for (i = 0; i < landingStripSize; i++) {
 			Planes[i] = this.secondLandingStrip.pop();
+			this.secondLandingStrip.push(Planes[i]);
 		}
 		return Planes;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int getSecondLandingStripTakeoutSeconds() {
 		int landingStripSize = this.secondLandingStrip.size(), i, seconds = 0;
 		Plane aux;

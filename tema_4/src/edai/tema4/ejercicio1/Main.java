@@ -60,37 +60,28 @@ public class Main {
 			airport.addPlane(plane);
 		}
 
-		for (int i = 0; i < 200; i++) {
-			System.out.print("-");
-		}
+		System.out.println("(id), (airline),(takeout seconds) (destination)");
 		System.out.println("");
 
-		System.out.print("First landing strip: ");
+		System.out.println("First landing strip: ");
 		Plane[] planesFirstLS = airport.getFirstLandingStripPlanes();
-		for (int i = 0; i < planesFirstLS.length; i++) {
-			System.out.print(planesFirstLS[i].getId() + ",");
-			System.out.print(" " + planesFirstLS[i].getAirline() + ",");
-			System.out.print(" " + planesFirstLS[i].getDestination());
-			System.out.print(" || ");
-		}
-		
-		System.out.println("");
-		System.out.println("");
-		
-		System.out.print("Second landing strip: ");
-		Plane[] planesSecondLS = airport.getSecondLandingStripPlanes();
-		for (int i = 0; i < planesSecondLS.length; i++) {
-			System.out.print(planesSecondLS[i].getId() + ",");
-			System.out.print(" " + planesSecondLS[i].getAirline() + ",");
-			System.out.print(" " + planesSecondLS[i].getDestination());
-			System.out.print(" || ");
-		}
+		printPLanes(planesFirstLS);
 
 		System.out.println("");
-		for (int i = 0; i < 200; i++) {
-			System.out.print("-");
-		}
+		System.out.println("");
+
+		System.out.println("Second landing strip: ");
+		Plane[] planesSecondLS = airport.getSecondLandingStripPlanes();
+		printPLanes(planesSecondLS);
 
 	}
 
+	public static void printPLanes(Plane[] planes) {
+		for (int i = 0; i < planes.length; i++) {
+			System.out.print(planes[i].getId() + ", ");
+			System.out.print(planes[i].getAirline() + ", ");
+			System.out.print(planes[i].getTakeoutSeconds() + " Seconds, ");
+			System.out.println(planes[i].getDestination());
+		}
+	}
 }

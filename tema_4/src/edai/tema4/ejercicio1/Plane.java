@@ -13,34 +13,70 @@ public class Plane implements Serializable {
 	private String destination;
 	private int takeoutSeconds;
 
+	public Plane() {
+
+	}
+
+	/**
+	 * 
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * 
+	 * @param airline
+	 */
 	public void setAirline(String airline) {
 		this.airline = airline;
 	}
 
+	/**
+	 * 
+	 * @param destination
+	 */
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getAirline() {
 		return airline;
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getDestination() {
 		return destination;
 	}
 
+	/**
+	 * 
+	 * @param takeoutSeconds
+	 */
 	public void setTakeoutSeconds(int takeoutSeconds) {
 		this.takeoutSeconds = takeoutSeconds;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int getTakeoutSeconds() {
 		return this.takeoutSeconds;
 	}
