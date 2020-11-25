@@ -64,15 +64,13 @@ public class Main {
 		System.out.println("");
 
 		System.out.println("First landing strip: ");
-		Plane[] planesFirstLS = airport.getFirstLandingStripPlanes();
-		printPLanes(planesFirstLS);
+		printPLanes(airport.getFirstLandingStripPlanes());
 
 		System.out.println("");
 		System.out.println("");
 
 		System.out.println("Second landing strip: ");
-		Plane[] planesSecondLS = airport.getSecondLandingStripPlanes();
-		printPLanes(planesSecondLS);
+		printPLanes(airport.getSecondLandingStripPlanes());
 
 	}
 
