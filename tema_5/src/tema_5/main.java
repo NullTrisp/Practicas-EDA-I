@@ -17,8 +17,11 @@ public class main {
 		tree.insert(64);
 		tree.insert(26);
 		tree.insert(72);
-		tree.remove(15);
-		
-		System.out.print(tree.getRoot().getData());
+
+		Object[] idk = tree.listPath(6);
+
+		for (Object o : idk) {
+			System.out.println(o);
+		}
 	}
 }
