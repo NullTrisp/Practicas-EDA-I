@@ -2,7 +2,6 @@ package edai.tema5.ejercicio1;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import edai.tema5.BinaryTree;
 
 public class VmInfo implements Serializable, Comparable<VmInfo> {
 
@@ -44,9 +43,7 @@ public class VmInfo implements Serializable, Comparable<VmInfo> {
 
 	@Override
 	public int compareTo(VmInfo vm) {
-		long vmDiffSec = (vm.getEndDate().getTimeInMillis() - vm.getStartDate().getTimeInMillis()) / 1000;
-		long thisVmDiffSec = (this.endDate.getTimeInMillis() - this.startDate.getTimeInMillis()) / 1000;
-
-		return (int) (thisVmDiffSec - vmDiffSec);
+		return (int) (((this.endDate.getTimeInMillis() - this.startDate.getTimeInMillis()) / 1000)
+				- ((vm.getEndDate().getTimeInMillis() - vm.getStartDate().getTimeInMillis()) / 1000));
 	}
 }
