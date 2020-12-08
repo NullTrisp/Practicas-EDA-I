@@ -1,8 +1,9 @@
-package ejercicio2;
+package edai.tema5.ejercicio2;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import tema_5.BinaryTree;
+
+import edai.tema5.BinaryTree;
 
 class TreeTraversalTest {
 	@Test

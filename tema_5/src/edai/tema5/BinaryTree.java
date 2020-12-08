@@ -1,7 +1,8 @@
-package tema_5;
+package edai.tema5;
 
 import java.util.Arrays;
-import tema_5.IDataStructure;
+
+import edai.tema5.IDataStructure;
 
 public class BinaryTree<T extends Comparable<T>> implements IDataStructure<T> {
 	private TreeNode<T> root;

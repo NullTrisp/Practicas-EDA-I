@@ -1,4 +1,4 @@
-package tema_5;
+package edai.tema5;
 
 public class TreeNode<T> {
 	private T data;

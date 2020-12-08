@@ -1,4 +1,4 @@
-package tema_5;
+package edai.tema5;
 
 public interface IDataStructure<T> {
 	public boolean isEmpty();

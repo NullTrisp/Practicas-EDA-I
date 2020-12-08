@@ -1,11 +1,10 @@
-package ejercicio1;
+package edai.tema5.ejercicio1;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import edai.tema5.BinaryTree;
 
-import tema_5.BinaryTree;
-
-public class VmMeter implements Serializable, Comparable<VmMeter> {
+public class VmInfo implements Serializable, Comparable<VmInfo> {
 
 	/**
 	 * 
@@ -15,7 +14,7 @@ public class VmMeter implements Serializable, Comparable<VmMeter> {
 	private Calendar startDate;
 	private Calendar endDate;
 
-	public VmMeter() {
+	public VmInfo() {
 
 	}
 
@@ -44,13 +43,10 @@ public class VmMeter implements Serializable, Comparable<VmMeter> {
 	}
 
 	@Override
-	public int compareTo(VmMeter arg0) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public int compareTo(VmInfo vm) {
+		long vmDiffSec = (vm.getEndDate().getTimeInMillis() - vm.getStartDate().getTimeInMillis()) / 1000;
+		long thisVmDiffSec = (this.endDate.getTimeInMillis() - this.startDate.getTimeInMillis()) / 1000;
 
-	public static VmMeter getHighestCpuTimeVm(BinaryTree<VmMeter> tree) {
-		// TODO Auto-generated method stub
-		return null;
+		return (int) (thisVmDiffSec - vmDiffSec);
 	}
 }
