@@ -21,7 +21,6 @@ class VmMeterTest {
 		final Calendar vm3End = Calendar.getInstance();
 		vm3End.set(2020, 4, 6, 11, 6, 36);
 		final VmInfo vm1 = new VmInfo();
-
 		vm1.setProcessName("Windows 10");
 		vm1.setStartDate(vm1Start);
 		vm1.setEndDate(vm1End);
@@ -38,6 +37,5 @@ class VmMeterTest {
 		tree.insert(vm2);
 		tree.insert(vm3);
 		assertEquals("Fedora 32", VmMeter.getHighestCpuTimeVm(tree).getProcessName());
-
 	}
 }
