@@ -41,7 +41,7 @@ public class Program {
 		String[] nodesArr = new String[graph.getNodeCount()];
 		int i = 0;
 		for (Node node : graph) {
-			nodesArr[i] = node.toString() + " " + "(",;
+			//nodesArr[i] = node.toString() + " " + "(",;
 			++i;
 		}
 		return nodesArr;
