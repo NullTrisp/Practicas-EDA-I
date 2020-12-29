@@ -11,8 +11,8 @@ import java.util.Arrays;
 public class Program {
 
 	public static void main(String[] args) {
-		String file1 = "D:\\1Main\\Libraries\\Documents\\Uni\\2020-2021\\Semestre 1\\EDA I\\Practicas\\tema_7\\src\\edai\\tema7\\ejercicio1\\numeros1";
-		String file2 = "D:\\1Main\\Libraries\\Documents\\Uni\\2020-2021\\Semestre 1\\EDA I\\Practicas\\tema_7\\src\\edai\\tema7\\ejercicio1\\numeros2";
+		String file1 = "numeros1";
+		String file2 = "numeros2";
 
 		int[] file1Numbers = castArr(readFile(file1));
 		int[] file2Numbers = castArr(readFile(file2));
@@ -103,8 +103,7 @@ public class Program {
 
 	private static void createTxt(int[] data) {
 		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(
-					"D:\\\\1Main\\\\Libraries\\\\Documents\\\\Uni\\\\2020-2021\\\\Semestre 1\\\\EDA I\\\\Practicas\\\\tema_7\\\\src\\\\edai\\\\tema7\\\\ejercicio1\\\\resultado"));
+			BufferedWriter out = new BufferedWriter(new FileWriter("resultado"));
 			for (int i = 0; i < data.length; i++) {
 				out.write(Integer.toString(data[i]));
 				out.newLine();
