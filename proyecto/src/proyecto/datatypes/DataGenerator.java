@@ -27,7 +27,7 @@ public class DataGenerator {
 		try {
 			URL address = new URL("https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat");
 			InputStream in = address.openStream();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
 			String line;
 			while ((line = reader.readLine()) != null) {
 				data.add(line);
@@ -92,7 +92,7 @@ public class DataGenerator {
 		try {
 			URL address = new URL("https://raw.githubusercontent.com/jpatokal/openflights/master/data/routes.dat");
 			InputStream in = address.openStream();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
 			String line;
 			while ((line = reader.readLine()) != null) {
 				data.add(line);
@@ -139,5 +139,15 @@ public class DataGenerator {
 		}
 		this.routes = routes;
 		return this;
+	}
+
+	public Airport getByNameAndCountry(String name, String country) {
+		Airport airportFound = null;
+		for (int i = 0; i < this.airports.size(); i++) {
+			if (this.airports.get(i).getName().equals(name) && this.airports.get(i).getCountry().equals(country)) {
+				airportFound = this.airports.get(i);
+			}
+		}
+		return airportFound;
 	}
 }

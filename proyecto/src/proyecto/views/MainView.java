@@ -1,39 +1,37 @@
 package proyecto.views;
 
+import proyecto.datatypes.DataGenerator;
+import java.util.ArrayList;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Font;
+import java.awt.Component;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-
-import proyecto.datatypes.DataGenerator;
-
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.UIManager;
-import java.awt.GridLayout;
 import javax.swing.JLabel;
-import java.awt.Component;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import javax.swing.JTextField;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class MainView extends JFrame implements ActionListener {
 	private static final long serialVersionUID = -3467006337195513157L;
 	private JPanel contentPane;
 	private DataGenerator dataGenerator;
 	private ArrayList<String> airportsNames = new ArrayList<String>();
-	private JList<String> listFrom;
-	private JList<String> listTo;
+	private JList<String> listSource;
+	private JList<String> listDestination;
 	private JTextField filterSource;
 	private JTextField filterDestination;
 
@@ -41,7 +39,8 @@ public class MainView extends JFrame implements ActionListener {
 	public MainView(DataGenerator dataGenerator) {
 		this.dataGenerator = dataGenerator;
 		for (int i = 0; i < this.dataGenerator.getAirports().size(); i++) {
-			this.airportsNames.add(dataGenerator.getAirports().get(i).getName());
+			this.airportsNames.add(dataGenerator.getAirports().get(i).getName() + ", "
+					+ dataGenerator.getAirports().get(i).getCountry());
 		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 568, 439);
@@ -53,7 +52,7 @@ public class MainView extends JFrame implements ActionListener {
 		mntmNewMenuItem.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new GraphGenerator().setNodes(dataGenerator.getAirports()).setUp();
+				new GraphGenerator(dataGenerator).setNodes().setUp();
 			}
 		});
 		menuBar.add(mntmNewMenuItem);
@@ -75,15 +74,15 @@ public class MainView extends JFrame implements ActionListener {
 						filteredNames.add(airportName);
 					}
 				});
-				listFrom.setListData(filteredNames.toArray(new String[filteredNames.size()]));
+				listSource.setListData(filteredNames.toArray(new String[filteredNames.size()]));
 			}
 		});
 		contentPane.add(filterSource);
 		filterSource.setColumns(10);
 
-		this.listFrom = new JList(this.airportsNames.toArray());
+		this.listSource = new JList(this.airportsNames.toArray());
 		JScrollPane scrollPaneFrom = new JScrollPane();
-		scrollPaneFrom.setViewportView(listFrom);
+		scrollPaneFrom.setViewportView(listSource);
 		contentPane.add(scrollPaneFrom);
 
 		JLabel lblAirportFrom = new JLabel("Airport From");
@@ -100,15 +99,15 @@ public class MainView extends JFrame implements ActionListener {
 						filteredNames.add(airportName);
 					}
 				});
-				listTo.setListData(filteredNames.toArray(new String[filteredNames.size()]));
+				listDestination.setListData(filteredNames.toArray(new String[filteredNames.size()]));
 			}
 		});
 		contentPane.add(filterDestination);
 		filterDestination.setColumns(10);
 
-		this.listTo = new JList(this.airportsNames.toArray());
+		this.listDestination = new JList(this.airportsNames.toArray());
 		JScrollPane scrollPaneTo = new JScrollPane();
-		scrollPaneTo.setViewportView(listTo);
+		scrollPaneTo.setViewportView(listDestination);
 		contentPane.add(scrollPaneTo);
 
 		JLabel lblAirportTo = new JLabel("Airport To");
@@ -125,15 +124,19 @@ public class MainView extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (this.listFrom.getSelectedIndex() == -1 || this.listTo.getSelectedIndex() == -1) {
+		String[] source = this.listSource.getSelectedValue().split(", ");
+		String[] destination = this.listDestination.getSelectedValue().split(", ");
+		if (this.listSource.getSelectedIndex() == -1 || this.listDestination.getSelectedIndex() == -1) {
 			JOptionPane.showMessageDialog(this, "You must select a destination and source airport", "Seriously?",
 					JOptionPane.ERROR_MESSAGE);
-		} else if (this.listFrom.getSelectedIndex() == this.listTo.getSelectedIndex()) {
+		} else if (source.equals(destination)) {
 			JOptionPane.showMessageDialog(this, "Source airport cannot be same as destination airport",
 					"Why are you doing this?", JOptionPane.ERROR_MESSAGE);
 		} else {
 			this.setVisible(false);
-			new GraphGenerator().setNodes(this.dataGenerator.getAirports()).setUp();
+			new GraphGenerator(this.dataGenerator, this.dataGenerator.getByNameAndCountry(source[0], source[1]),
+					this.dataGenerator.getByNameAndCountry(destination[0], destination[1])).setNodes().setRoutes()
+							.setUp();
 		}
 	}
 }
