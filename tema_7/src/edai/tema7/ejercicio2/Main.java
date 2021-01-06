@@ -1,22 +1,18 @@
 package edai.tema7.ejercicio2;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 
-public class ATM {
+public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
 		Scanner inString = new Scanner(System.in), inInt = new Scanner(System.in);
 		String option;
-		int cashInput, auxCash = 0, currentBill;
-		int[] atmCash = getAtmCash();
-		boolean allowRetrieve = false, validInput = false;
+		int currentBill;
+		ATM atm = new ATM();
 
 		System.out.println("Welcome to this personal ATM");
+		// values in txt are: 10 euro bill, 20 euro bill and 50 euro bill
 		while (true) {
 			Thread.sleep(1000);
 			System.out.println("What do you desire to do?");
@@ -27,42 +23,33 @@ public class ATM {
 			option = inString.nextLine();
 			switch (option) {
 			case "1":
-				// TODO update txt
 				System.out.println("How much cash do you want to retrieve?");
-				cashInput = inInt.nextInt();
-
-				for (int i = 0; i < atmCash.length; i++) {
-					currentBill = (i == 0) ? 10 : (i == 1) ? 20 : 50;
-					if (!allowRetrieve && !validInput) {
-						for (int j = 0; j < atmCash[i]; j++) {
-							auxCash += currentBill;
-							if (auxCash == cashInput) {
-								allowRetrieve = true;
-								break;
-							} else if (auxCash > cashInput) {
-
-								validInput = true;
-								break;
-							}
-						}
-					} else if (allowRetrieve) {
-						System.out.println("Success!");
-						break;
-					} else {
-						System.out.println("not success!");
-						break;
-					}
-				}
+				atm.retrieve(inInt.nextInt());
 				break;
 			case "2":
-				// TODO make input verifications
+				int[] values = new int[3];
+				boolean validValues = true;
+				int inputValue;
 				for (int i = 0; i < 3; i++) {
 					currentBill = (i == 0) ? 10 : (i == 1) ? 20 : 50;
 					System.out.println("How many $" + currentBill + " bills do desire to depost?");
-					cashInput = inInt.nextInt();
-					atmCash[i] += cashInput;
+					try {
+						inputValue = inInt.nextInt();
+						if (inputValue < 0) {
+							validValues = false;
+							System.err.println("\nYou cannot input negative values!");
+							break;
+						}
+						values[i] = inputValue + atm.getAtmCash()[i];
+					} catch (InputMismatchException err) {
+						validValues = false;
+						System.err.println("\nYou cannot input non-numeric characters!");
+						break;
+					}
 				}
-				updateAtmCash(atmCash);
+				if (validValues) {
+					atm.updateAtmCash(values);
+				}
 				break;
 			case "3":
 				System.out.println("\nThank you for using this ATM!");
@@ -76,42 +63,4 @@ public class ATM {
 		}
 
 	}
-
-	private static int[] getAtmCash() {
-		StringBuffer sb = null;
-		try {
-			BufferedReader in = new BufferedReader(new FileReader("ATM"));
-
-			sb = new StringBuffer();
-			int c;
-			while ((c = in.read()) != -1) {
-				sb.append((char) c);
-			}
-
-			in.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return castArr(sb.toString().split(","));
-	}
-
-	private static int[] castArr(String[] arr) {
-		int[] castedArr = new int[arr.length];
-		for (int i = 0; i < arr.length; i++) {
-			castedArr[i] = Integer.parseInt(arr[i]);
-		}
-		return castedArr;
-	}
-
-	private static void updateAtmCash(int[] cash) {
-		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter("ATM"));
-			out.write(cash[0] + "," + cash[1] + "," + cash[2]);
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 }
