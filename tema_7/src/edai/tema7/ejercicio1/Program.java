@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Program {
@@ -66,28 +65,20 @@ public class Program {
 		return c;
 	}
 
-	@SuppressWarnings("unused")
 	private static int[] deleteDuplicates(int[] arr) {
-		ArrayList<Integer> newArr = new ArrayList<Integer>();
-		int arrLen = arr.length;
-		for (int i = 0; i < arrLen; i++) {
-			for (int j = i + 1; j < arrLen; j++) {
-				if (arr[i] == arr[j]) {
-					break;
-				} else {
-					newArr.add(arr[i]);
-					break;
-				}
-			}
-		}
+		int n = arr.length;
+		int[] temp = new int[n], aux;
 
-		int[] aux = new int[newArr.size()];
+		int j = 0;
+		for (int i = 0; i < n - 1; i++)
+			if (arr[i] != arr[i + 1])
+				temp[j++] = arr[i];
 
-		for (int i = 0; i < newArr.size(); i++) {
-			if (newArr.get(i) != null) {
-				aux[i] = newArr.get(i);
-			}
-		}
+		temp[j++] = arr[n - 1];
+
+		aux = new int[j];
+		for (int i = 0; i < j; i++)
+			aux[i] = temp[i];
 
 		return aux;
 	}
