@@ -1,11 +1,9 @@
 package proyecto;
 
 import java.awt.EventQueue;
-
 import proyecto.datatypes.DataGenerator;
 import proyecto.views.MainView;
 
-//TODO create unit tests
 public class Main {
 	public static void main(String[] args) {
 

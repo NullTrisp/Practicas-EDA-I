@@ -43,7 +43,7 @@ public class MainView extends JFrame implements ActionListener {
 					+ dataGenerator.getAirports().get(i).getCountry());
 		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 568, 439);
+		setBounds(100, 100, 1081, 723);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -52,7 +52,7 @@ public class MainView extends JFrame implements ActionListener {
 		mntmNewMenuItem.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new GraphGenerator(dataGenerator).setNodes().setUp();
+				new GraphGenerator(dataGenerator).setNodes().setRoutes().setUp();
 			}
 		});
 		menuBar.add(mntmNewMenuItem);
@@ -124,19 +124,23 @@ public class MainView extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String[] source = this.listSource.getSelectedValue().split(", ");
-		String[] destination = this.listDestination.getSelectedValue().split(", ");
+		String[] source = null, destination = null;
+		try {
+			source = this.listSource.getSelectedValue().split(", ");
+			destination = this.listDestination.getSelectedValue().split(", ");
+		} catch (Exception err) {
+		}
 		if (this.listSource.getSelectedIndex() == -1 || this.listDestination.getSelectedIndex() == -1) {
 			JOptionPane.showMessageDialog(this, "You must select a destination and source airport", "Seriously?",
 					JOptionPane.ERROR_MESSAGE);
-		} else if (source.equals(destination)) {
+		} else if (source[0].equals(destination[0])) {
 			JOptionPane.showMessageDialog(this, "Source airport cannot be same as destination airport",
 					"Why are you doing this?", JOptionPane.ERROR_MESSAGE);
 		} else {
 			this.setVisible(false);
 			new GraphGenerator(this.dataGenerator, this.dataGenerator.getByNameAndCountry(source[0], source[1]),
 					this.dataGenerator.getByNameAndCountry(destination[0], destination[1])).setNodes().setRoutes()
-							.setUp();
+							.setDijkstra(this);
 		}
 	}
 }
