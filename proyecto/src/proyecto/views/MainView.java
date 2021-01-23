@@ -52,7 +52,7 @@ public class MainView extends JFrame implements ActionListener {
 		mntmNewMenuItem.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new GraphGenerator(dataGenerator).setNodes().setRoutes().setUp();
+				new GraphGenerator(dataGenerator).setNodesWholeDataSet().setRoutes(false).setUp();
 			}
 		});
 		menuBar.add(mntmNewMenuItem);
@@ -139,7 +139,7 @@ public class MainView extends JFrame implements ActionListener {
 		} else {
 			this.setVisible(false);
 			new GraphGenerator(this.dataGenerator, this.dataGenerator.getByNameAndCountry(source[0], source[1]),
-					this.dataGenerator.getByNameAndCountry(destination[0], destination[1])).setNodes().setRoutes()
+					this.dataGenerator.getByNameAndCountry(destination[0], destination[1])).setNodes().setRoutes(true)
 							.setDijkstra(this);
 		}
 	}

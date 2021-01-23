@@ -9,6 +9,8 @@ import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
+import org.graphstream.ui.view.Viewer;
+
 import proyecto.datatypes.Airport;
 import proyecto.datatypes.DataGenerator;
 import proyecto.datatypes.Route;
@@ -18,6 +20,7 @@ public class GraphGenerator {
 	private DataGenerator dataGenerator;
 	private Airport source;
 	private Airport destination;
+	private Viewer view;
 
 	public GraphGenerator(DataGenerator dataGenerator) {
 		System.setProperty("org.graphstream.ui", "swing");
@@ -34,27 +37,44 @@ public class GraphGenerator {
 	}
 
 	public GraphGenerator setNodes() {
+		Airport[] aux = this.dataGenerator.getAirports().toArray(new Airport[this.dataGenerator.getAirports().size()]);
 		for (int i = 0; i < this.dataGenerator.getAirports().size(); i++) {
-			this.graph.addNode(this.dataGenerator.getAirports().get(i).getAirportID()).setAttribute("ui.style",
-					"size: 6px, 6px; fill-color: darkgray;");
-			this.graph.getNode(i).setAttribute("x", this.dataGenerator.getAirports().get(i).getLongitude());
-			this.graph.getNode(i).setAttribute("y", this.dataGenerator.getAirports().get(i).getLatitude());
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("ui.style", "size: 6px, 6px; fill-color: darkgray;");
+			options.put("x", aux[i].getLongitude());
+			options.put("y", aux[i].getLatitude());
+
+			this.graph.addNode(aux[i].getAirportID()).setAttributes(options);
 		}
 		return this;
 	}
 
-	public GraphGenerator setRoutes() {
+	public GraphGenerator setNodesWholeDataSet() {
+		Airport[] aux = this.dataGenerator.getAirports().toArray(new Airport[this.dataGenerator.getAirports().size()]);
+		for (int i = 0; i < this.dataGenerator.getAirports().size(); i++) {
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put("ui.style", "size: 6px, 6px; fill-color: darkgray;");
+			options.put("x", aux[i].getLongitude());
+			options.put("y", aux[i].getLatitude());
+			options.put("ui.label", aux[i].getName());
+
+			this.graph.addNode(aux[i].getAirportID()).setAttributes(options);
+		}
+		return this;
+	}
+
+	public GraphGenerator setRoutes(boolean path) {
 		Airport source, destination;
 		Route routes[] = new Route[this.dataGenerator.getRoutes().size()];
 		routes = this.dataGenerator.getRoutes().toArray(routes);
-
+		String edgeColor = (path) ? "rgba(0,0,0,0)" : "green";
 		for (int i = 0; i < routes.length; i++) {
 			try {
 				source = this.searchAirport(routes[i].getSourceAirportID());
 				destination = this.searchAirport(routes[i].getDestinationAirportID());
 				if (source != null && destination != null) {
 					Map<String, Object> options = new HashMap<String, Object>();
-					options.put("ui.style", "fill-color: dodgerblue; stroke-width: 2px;");
+					options.put("ui.style", "fill-color: " + edgeColor + "; stroke-width: 2px;");
 					options.put("length", "1");
 					// TODO change edge id
 					this.graph.addEdge(Integer.toString(i), source.getAirportID(), destination.getAirportID())
@@ -97,7 +117,7 @@ public class GraphGenerator {
 		}
 
 		for (Edge edge : dijkstra.getPathEdges(this.graph.getNode(this.destination.getAirportID()))) {
-			edge.setAttribute("ui.style", "fill-color: forestgreen; stroke-width: 10px;");
+			edge.setAttribute("ui.style", "fill-color: green; stroke-width: 10px;");
 		}
 
 		ArrayList<String> airports = new ArrayList<String>();
@@ -113,13 +133,14 @@ public class GraphGenerator {
 			frame.setVisible(true);
 		} else {
 			this.setUp();
-			new Path(airports.toArray(new String[airports.size()])).setVisible(true);
+			new Path(airports.toArray(new String[airports.size()]), this.dataGenerator, this.view).setVisible(true);
 		}
 
 		return this;
 	}
 
 	public void setUp() {
-		this.graph.display(false);
+		this.view = this.graph.display(false);
+		this.view.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY);
 	}
 }
