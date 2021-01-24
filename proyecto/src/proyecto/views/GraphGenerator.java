@@ -37,10 +37,11 @@ public class GraphGenerator {
 	}
 
 	public GraphGenerator setNodes() {
+		this.graph.setAttribute("ui.stylesheet", "graph { fill-color: black; }");
 		Airport[] aux = this.dataGenerator.getAirports().toArray(new Airport[this.dataGenerator.getAirports().size()]);
 		for (int i = 0; i < this.dataGenerator.getAirports().size(); i++) {
 			Map<String, Object> options = new HashMap<String, Object>();
-			options.put("ui.style", "size: 6px, 6px; fill-color: darkgray;");
+			options.put("ui.style", "size: 6px, 6px; fill-color: rgba(69, 69, 69, 35); text-color: rgba(0, 0, 0, 35);");
 			options.put("x", aux[i].getLongitude());
 			options.put("y", aux[i].getLatitude());
 
@@ -67,7 +68,7 @@ public class GraphGenerator {
 		Airport source, destination;
 		Route routes[] = new Route[this.dataGenerator.getRoutes().size()];
 		routes = this.dataGenerator.getRoutes().toArray(routes);
-		String edgeColor = (path) ? "rgba(0,0,0,0)" : "green";
+		String edgeColor = (path) ? "rgba(255, 98, 0, 15)" : "#1aff1a";
 		for (int i = 0; i < routes.length; i++) {
 			try {
 				source = this.searchAirport(routes[i].getSourceAirportID());
@@ -76,7 +77,6 @@ public class GraphGenerator {
 					Map<String, Object> options = new HashMap<String, Object>();
 					options.put("ui.style", "fill-color: " + edgeColor + "; stroke-width: 2px;");
 					options.put("length", "1");
-					// TODO change edge id
 					this.graph.addEdge(Integer.toString(i), source.getAirportID(), destination.getAirportID())
 							.setAttributes(options);
 				}
@@ -111,13 +111,13 @@ public class GraphGenerator {
 		dijkstra.setSource(this.graph.getNode(this.source.getAirportID()));
 		dijkstra.compute();
 		for (Node node : dijkstra.getPathNodes(this.graph.getNode(this.destination.getAirportID()))) {
-			node.setAttribute("ui.style", "fill-color: black; text-size: 24; text-color: blue; "
-					+ "text-alignment: above; text-background-color: grey; text-background-mode: plain;");
+			node.setAttribute("ui.style", "fill-color: black; text-size: 16; text-color: rgb(0, 64, 255); "
+					+ "text-alignment: above; text-background-color: rgb(150, 200, 255); text-background-mode: plain; z-index: 1;");
 			node.setAttribute("ui.label", this.searchAirport(node.getId()).getName());
 		}
 
 		for (Edge edge : dijkstra.getPathEdges(this.graph.getNode(this.destination.getAirportID()))) {
-			edge.setAttribute("ui.style", "fill-color: green; stroke-width: 10px;");
+			edge.setAttribute("ui.style", "fill-color: #ff0000; size: 6px; z-index: 1;");
 		}
 
 		ArrayList<String> airports = new ArrayList<String>();
@@ -140,6 +140,7 @@ public class GraphGenerator {
 	}
 
 	public void setUp() {
+		this.graph.setAttribute("ui.stylesheet", "node { z-index: 0; } edge { z-index: 0; }");
 		this.view = this.graph.display(false);
 		this.view.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY);
 	}

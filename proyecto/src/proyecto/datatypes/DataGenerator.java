@@ -9,10 +9,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class DataGenerator {
-	private ArrayList<String> rawRoutes = new ArrayList<String>();
-	private ArrayList<String> rawAirports = new ArrayList<String>();
-	private ArrayList<Route> routes = new ArrayList<Route>();
-	private ArrayList<Airport> airports = new ArrayList<Airport>();
+	private ArrayList<String> rawRoutes;
+	private ArrayList<String> rawAirports;
+	private ArrayList<Route> routes;
+	private ArrayList<Airport> airports;
+
+	public DataGenerator() {
+		this.rawAirports = new ArrayList<String>();
+		this.rawAirports = new ArrayList<String>();
+		this.routes = new ArrayList<Route>();
+		this.airports = new ArrayList<Airport>();
+	}
 
 	public ArrayList<Route> getRoutes() {
 		return routes;

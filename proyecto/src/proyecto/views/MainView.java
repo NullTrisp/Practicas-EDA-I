@@ -133,7 +133,7 @@ public class MainView extends JFrame implements ActionListener {
 		if (this.listSource.getSelectedIndex() == -1 || this.listDestination.getSelectedIndex() == -1) {
 			JOptionPane.showMessageDialog(this, "You must select a destination and source airport", "Seriously?",
 					JOptionPane.ERROR_MESSAGE);
-		} else if (source[0].equals(destination[0])) {
+		} else if (source[0].equals(destination[0]) && source[1].equals(destination[1])) {
 			JOptionPane.showMessageDialog(this, "Source airport cannot be same as destination airport",
 					"Why are you doing this?", JOptionPane.ERROR_MESSAGE);
 		} else {
